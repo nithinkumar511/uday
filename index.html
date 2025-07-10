@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Uday Kiran!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #fff;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    p {
+      font-size: 1.5rem;
+      color: #fff;
+      margin: 20px;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    button {
+      padding: 10px 25px;
+      font-size: 1.1rem;
+      background-color: #fff;
+      color: #e91e63;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.2s;
+      animation: fadeIn 4s ease-in-out;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    #surprise {
+      display: none;
+      font-size: 1.7rem;
+      color: #fff;
+      margin-top: 30px;
+      animation: popIn 1s ease-out forwards;
+    }
+
+    .profile-pic {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 0 20px #fff;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .balloons {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .balloon {
+      width: 40px;
+      height: 60px;
+      background-color: #ffeb3b;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: absolute;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .balloon::after {
+      content: '';
+      width: 2px;
+      height: 40px;
+      background: #fff;
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    canvas#confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+
+  <!-- 🔊 Background Music -->
+  <audio id="bg-music"loop hidden>
+    <source src="happy-birthday.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <img src="img1.png" alt="Uday Kiran" class="profile-pic" />
+  <h1>🎉 Happy Birthday Raa Pandhi! 🎂</h1>
+  <p>You're not just a friend, you're one of my Soul! Have an amazing year ahead!</p>
+  <button onclick="showSurprise()">Click for a Surprise 🎁</button>
+  <div id="surprise">🎈 You shine brighter than all the candles on your cake! 🎈</div>
+
+  <div class="balloons">
+    <div class="balloon" style="left: 15%; background: #e91e63;"></div>
+    <div class="balloon" style="left: 30%; background: #3f51b5;"></div>
+    <div class="balloon" style="left: 45%; background: #4caf50;"></div>
+    <div class="balloon" style="left: 60%; background: #ff9800;"></div>
+    <div class="balloon" style="left: 75%; background: #9c27b0;"></div>
+  </div>
+<script>
+  function showSurprise() {
+    document.getElementById("surprise").style.display = "block";
+    
+    // 🔊 Play music after user interaction
+    const music = document.getElementById("bg-music");
+    if (music.paused) {
+      music.play().catch(err => {
+        console.log("Autoplay failed:", err);
+      });
+    }
+  }
+</script>
+  <script>
+    function showSurprise() {
+      document.getElementById("surprise").style.display = "block";
+    }
+
+    // Confetti animation
+    const confettiCanvas = document.getElementById('confetti');
+    const ctx = confettiCanvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    confettiCanvas.width = width;
+    confettiCanvas.height = height;
+
+    let confetti = Array.from({ length: 150 }).map(() => ({
+      x: Math.random() * width,
+      y: Math.random() * height - height,
+      r: Math.random() * 6 + 4,
+      d: Math.random() * 5 + 2,
+      color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+      tilt: Math.random() * 10 - 10
+    }));
+
+    function drawConfetti() {
+      ctx.clearRect(0, 0, width, height);
+      confetti.forEach(c => {
+        ctx.beginPath();
+        ctx.fillStyle = c.color;
+        ctx.ellipse(c.x, c.y, c.r, c.r / 2, c.tilt, 0, 2 * Math.PI);
+        ctx.fill();
+        c.y += c.d;
+        c.tilt += 0.05;
+        if (c.y > height) {
+          c.y = -10;
+          c.x = Math.random() * width;
+        }
+      });
+      requestAnimationFrame(drawConfetti);
+    }
+
+    drawConfetti();
+    window.addEventListener('resize', () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      confettiCanvas.width = width;
+      confettiCanvas.height = height;
+    });
+  </script>
+</body>
+</html>
