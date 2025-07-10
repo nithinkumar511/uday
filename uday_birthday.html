@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Uday Kiran!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      height: 100vh;
+    }
+
+    .galaxy {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: transparent;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    h1.typing {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: .15em solid white;
+      width: 0;
+      margin: 2rem auto;
+      animation: typing 4s steps(30, end) forwards, blink .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .countdown {
+      font-size: 1.3rem;
+      margin-top: -1rem;
+    }
+
+    .carousel {
+      margin: 2rem auto;
+      width: 80%;
+      max-width: 500px;
+      font-style: italic;
+    }
+
+    .carousel p {
+      animation: fadein 2s ease-in-out;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      margin: 2rem;
+      gap: 10px;
+    }
+
+    .gallery img {
+      height: 250px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .cake {
+      margin: 2rem auto;
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border-radius: 50%;
+      position: relative;
+      animation: spin 5s linear infinite;
+    }
+
+    .cake::before {
+      content: '🕯️';
+      font-size: 1.5rem;
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: flicker 1s infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .floating {
+      position: absolute;
+      bottom: 0;
+      animation: floatUp 10s linear infinite;
+      font-size: 2rem;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: url('https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif') repeat;
+      background-size: cover;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .scroll-text {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease-out;
+    }
+
+    .scroll-text.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gift-box {
+      width: 100px;
+      height: 100px;
+      margin: 2rem auto;
+      background: red;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    .gift-box::after {
+      content: "🎁";
+      font-size: 3rem;
+      position: absolute;
+      top: 20%;
+      left: 30%;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="galaxy" id="galaxy"></div>
+  <div class="confetti"></div>
+
+  <h1 class="typing scroll-text">🎉 Happy Birthday Raa Pandhi! 🎂</h1>
+  <div class="countdown scroll-text" id="countdown"></div>
+
+  <div class="carousel scroll-text" id="quotes">
+    <p>“Count your life by smiles, not tears. Count your age by friends, not years.”</p>
+  </div>
+
+  <div class="gallery scroll-text">
+    <img src="./img1.png" alt="Memory 1">
+    <img src="./img2.png" alt="Memory 2">
+    <img src="./img3.jpg" alt="Memory 3">
+    <img src="./img4.png" alt="Memory 4">
+  </div>
+
+  <div class="cake"></div>
+  <div class="gift-box" onclick="giftSurprise()"></div>
+
+  <script>
+    // Generate stars
+    const galaxy = document.getElementById('galaxy');
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+      galaxy.appendChild(star);
+    }
+
+    function spawnFloating(symbol) {
+      const elem = document.createElement('div');
+      elem.className = 'floating';
+      elem.style.left = Math.random() * 100 + 'vw';
+      elem.textContent = symbol;
+      document.body.appendChild(elem);
+      setTimeout(() => elem.remove(), 10000);
+    }
+    setInterval(() => spawnFloating('🎈'), 800);
+    setInterval(() => spawnFloating('❤️'), 1500);
+
+    const countdownEl = document.getElementById("countdown");
+    const nextBirthday = new Date('July 11, ' + (new Date().getMonth() === 6 && new Date().getDate() > 11 ? new Date().getFullYear() + 1 : new Date().getFullYear()) + ' 00:00:00');
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = nextBirthday - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdownEl.innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s until your next birthday!`;
+    }, 1000);
+
+    const quotes = [
+      "“Wishing you a day filled with love and cheer!”",
+      "“Another adventure-filled year awaits you!”",
+      "“You deserve all the cakes, love, hugs and happiness today!”",
+      "“May your birthday be as amazing as you are.”",
+    ];
+    let quoteIndex = 0;
+    setInterval(() => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      document.getElementById("quotes").innerHTML = `<p>${quotes[quoteIndex]}</p>`;
+    }, 4000);
+
+    function giftSurprise() {
+      alert("🎁 Surprise! You are amazing, Uday! 🎊");
+      for (let i = 0; i < 20; i++) {
+        spawnFloating("🎊");
+      }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    });
+    document.querySelectorAll('.scroll-text').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
